@@ -2,9 +2,19 @@ name: CF-Clean-IP-Scan
 on:
   workflow_dispatch:
 jobs:
-  check:
+  scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Scan IP
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Run Scan Script
         run: |
-          curl -sL https://raw.githubusercontent.com/vfarid/cf-clean-ip/main/run.sh | bash
+          wget https://raw.githubusercontent.com/vfarid/cf-clean-ip/main/run.sh
+          chmod +x run.sh
+          ./run.sh
